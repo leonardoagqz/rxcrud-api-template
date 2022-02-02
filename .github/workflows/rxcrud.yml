@@ -1,0 +1,28 @@
+name: rxcrud
+on:
+  push:
+    branches: [main]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.x"
+      - name: Setup PostgreSQL
+        uses: Harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql user: "postgres"
+          postgresql password: "1234"
+      - name: Install Dependencies
+        run: dotnet restore
+      - name: Build Project
+        run: dotnet build --configuration Release --no-restore
+      - name: Running Unit Tests
+        run: dotnet test --no-restore --verbosity normal
+      - name: Generate Coverage Report
+        run: |
+          cd ./RXCrud.NUnitTest/
+          dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
