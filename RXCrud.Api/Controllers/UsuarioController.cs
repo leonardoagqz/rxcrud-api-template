@@ -27,7 +27,6 @@ namespace RXCrud.Api.Controllers
         /// <response code="401">Acesso não autorizado.</response>
         [HttpGet]
         [EnableQuery()]
-        [Authorize(Roles = "usuario_visualizar")]
         [ProducesResponseType(typeof(IQueryable<UsuarioDto>), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Get()
@@ -42,7 +41,6 @@ namespace RXCrud.Api.Controllers
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpGet("{id}")]
-        [Authorize(Roles = "usuario_visualizar")]
         [ProducesResponseType(typeof(UsuarioDto), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult PorId(Guid id)
@@ -66,7 +64,6 @@ namespace RXCrud.Api.Controllers
         /// <response code="400">Não foi possível criar.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpPost]
-        [Authorize(Roles = "usuario_novo")]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Post(UsuarioDto usuario)
         {
@@ -90,7 +87,6 @@ namespace RXCrud.Api.Controllers
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpPut]
-        [Authorize(Roles = "usuario_editar")]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Put(UsuarioDto usuario)
         {
@@ -117,7 +113,6 @@ namespace RXCrud.Api.Controllers
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpDelete("{id}")]
-        [Authorize(Roles = "usuario_excluir")]
         [ProducesResponseType(typeof(UsuarioDto), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Delete(Guid id)

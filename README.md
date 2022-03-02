@@ -1,5 +1,5 @@
 # rxcrud-api-template <img alt="rxcrud" height="20" src="https://github.com/rxcrud/rxcrud-api-template/blob/main/rxcrud.png">
-Template de aplicação para criação de projetos (<a href="https://rxcrud-api.herokuapp.com/swagger/index.html" target="_blank">Acessar</a>)
+Template de aplicação para criação de projetos (<a href="https://rxcrud-api-template.herokuapp.com/swagger/index.html" target="_blank">Acessar</a>)
 
 ![API ](https://img.shields.io/badge/API-C%23%20%2B%20.Net%20Core-blue) [![rxcrud](https://github.com/rxcrud/rxcrud-api-template/actions/workflows/rxcrud.yml/badge.svg)](https://github.com/rxcrud/rxcrud-api-template/actions/workflows/rxcrud.yml)
 
@@ -17,7 +17,7 @@ Gerar relatório de cobertura: (Lembrar de verificar se o caminho do ReportGener
 e do projeto estão corretos)
 
 ```bash
-dotnet %USERPROFILE%\.nuget\packages\reportgenerator\5.0.3\tools\net6.0\ReportGenerator.dll "-reports:.\RXCrud.NUnitTest\CoverageData\coverage.opencover.xml" "-targetdir:.\RXCrud.NUnitTest\CoverageReport" -reporttypes:Html
+dotnet %USERPROFILE%\.nuget\packages\reportgenerator\5.0.4\tools\net6.0\ReportGenerator.dll "-reports:.\RXCrud.NUnitTest\CoverageData\coverage.opencover.xml" "-targetdir:.\RXCrud.NUnitTest\CoverageReport" -reporttypes:Html
 ```
 
 Acessar relatório de cobertura:
