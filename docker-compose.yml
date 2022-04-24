@@ -3,7 +3,7 @@ services:
   api:
     env_file:
       - ./.env
-    image: rxcrud/api:1.0
+    image: rxcrud/api:latest
     restart: on-failure
     container_name: api
     build:
@@ -26,14 +26,14 @@ services:
       - rxcrud_net
 
   web:
-    image: rxcrud/web:1.0.0
+    image: rxcrud/web:latest
     restart: on-failure
     container_name: web
     depends_on:
       - api
     build:
       context: ../rxcrud-web-template
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - 3001:80
     environment:

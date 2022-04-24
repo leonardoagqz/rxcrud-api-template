@@ -35,9 +35,9 @@ jobs:
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
+          usedocker: true
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          usedocker: true
-          healthcheck: "https://rxcrud-api-template.herokuapp.com/HealthCheck/Check"
           checkstring: '{"message":"Aplicacao Funcionando!"}'
+          healthcheck: "https://rxcrud-api-template.herokuapp.com/HealthCheck/Check"

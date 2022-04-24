@@ -20,15 +20,28 @@ namespace RXCrud.Api.Middleware
                     {
                         if (contextFeature.Error is RXCrudException)
                         {
-                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                             context.Response.ContentType = "application/json";
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionMessage(contextFeature.Error.Message)));
+                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionMessage(
+                                contextFeature.Error.Message)));
                         }
                         else
                         {
-                            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                            context.Response.ContentType = "application/json";
-                            await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionMessage("Erro interno no servidor ao processar a solicitação." + contextFeature.Error.Message)));
+                            if (contextFeature.Error.InnerException.Message.Contains("violates foreign key constraint"))
+                            {
+                                context.Response.ContentType = "application/json";
+                                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                                await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionMessage(
+                                    "Não foi possível finalizar a operação pois este registro possui dependências.")));
+                            }
+                            else
+                            {
+                                context.Response.ContentType = "application/json";
+                                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                                await context.Response.WriteAsync(JsonConvert.SerializeObject(new ExceptionMessage(
+                                    "Erro interno no servidor ao processar a solicitação." + contextFeature.Error.Message +
+                                    contextFeature.Error.InnerException.Message)));
+                            }
                         }
                     }
                 });
