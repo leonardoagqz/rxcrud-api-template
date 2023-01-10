@@ -22,6 +22,27 @@ namespace RXCrud.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("RXCrud.Domain.Entities.Estado", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Uf")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Uf")
+                        .IsUnique();
+
+                    b.ToTable("Estado");
+                });
+
             modelBuilder.Entity("RXCrud.Domain.Entities.Usuario", b =>
                 {
                     b.Property<Guid>("Id")

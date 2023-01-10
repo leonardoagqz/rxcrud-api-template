@@ -10,6 +10,7 @@ namespace RXCrud.Api.Configuracoes
         {
             ODataConventionModelBuilder odataBuilder = new ODataConventionModelBuilder();
 
+            odataBuilder.EntitySet<EstadoDto>("Estado");
             odataBuilder.EntitySet<UsuarioDto>("Usuario");
 
             return odataBuilder.GetEdmModel();

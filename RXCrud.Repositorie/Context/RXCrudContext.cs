@@ -16,6 +16,7 @@ namespace RXCrud.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new EstadoConfig());
             modelBuilder.ApplyConfiguration(new UsuarioConfig());
 
             IList<Usuario> usuarios = new List<Usuario>();

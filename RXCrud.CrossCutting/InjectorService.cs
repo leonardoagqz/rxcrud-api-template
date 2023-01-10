@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using RXCrud.Service.Services;
 using RXCrud.Domain.Interfaces.Services;
-using RXCrud.Service.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace RXCrud.CrossCutting
 {
@@ -8,6 +8,7 @@ namespace RXCrud.CrossCutting
     {
         public static void RegisterService(this IServiceCollection services)
         {
+            services.AddScoped<IEstadoService, EstadoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
         }
     }
