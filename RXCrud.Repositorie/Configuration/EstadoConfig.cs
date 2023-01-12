@@ -9,7 +9,7 @@ namespace RXCrud.Data.Configuration
         public void Configure(EntityTypeBuilder<Estado> builder)
         {
             builder.HasKey(u => u.Id);
-            builder.HasIndex(u => u.Uf).IsUnique();
+            builder.Property(u => u.Uf).IsRequired();
             builder.Property(u => u.Descricao).IsRequired();
         }
     }

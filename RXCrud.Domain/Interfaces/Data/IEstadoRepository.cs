@@ -4,8 +4,7 @@ using RXCrud.Domain.Interfaces.Common;
 namespace RXCrud.Domain.Interfaces.Data
 {
     public interface IEstadoRepository : IRepository<Estado>
-    {
-        
+    {        
         Estado PesquisarPorUf(string uf);
     }
 }

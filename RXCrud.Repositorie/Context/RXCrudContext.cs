@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RXCrud.Data.Configuration;
+﻿using System;
 using RXCrud.Domain.Entities;
-using System;
+using RXCrud.Data.Configuration;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace RXCrud.Data.Context
 {
@@ -17,6 +17,7 @@ namespace RXCrud.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new EstadoConfig());
+            modelBuilder.ApplyConfiguration(new CidadeConfig());
             modelBuilder.ApplyConfiguration(new UsuarioConfig());
 
             IList<Usuario> usuarios = new List<Usuario>();

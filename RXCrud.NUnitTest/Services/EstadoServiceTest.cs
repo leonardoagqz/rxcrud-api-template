@@ -32,7 +32,7 @@ namespace RXCrud.NUnitTest.Services
         public void CriarTest()
         {
             _mockEstadoRepository.Setup(r => r.PesquisarPorUf("Estado Teste")).Returns(_estado);
-            Assert.DoesNotThrow(() => _estadoService.Criar(new EstadoDto(Guid.NewGuid(), "Estado Teste", "Descrição Teste")));
+            Assert.DoesNotThrow(() => _estadoService.Criar(new EstadoDto("Estado Teste", "Descrição Teste")));
         }
                 
         
@@ -40,13 +40,13 @@ namespace RXCrud.NUnitTest.Services
         public void AtualizarTest()
         {
             _mockEstadoRepository.Setup(r => r.PesquisarPorUf("Estado Teste")).Returns(_estado);
-            Assert.DoesNotThrow(() => _estadoService.Atualizar(new EstadoDto(Guid.NewGuid(),"Estado Teste Atualizar", "Descrição Teste")));
+            Assert.DoesNotThrow(() => _estadoService.Atualizar(new EstadoDto("Estado Teste Atualizar", "Descrição Teste")));
         }
         
 
         [Test]
         public void RemoverTest()
-            => Assert.DoesNotThrow(() => _estadoService.Remover(new EstadoDto(Guid.NewGuid(), "Estado Teste Atualizar", "Descrição Teste")));
+            => Assert.DoesNotThrow(() => _estadoService.Remover(new EstadoDto("Estado Teste Atualizar", "Descrição Teste")));
 
         [Test]
         public void ObterTodosTest()

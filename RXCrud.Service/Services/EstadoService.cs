@@ -53,6 +53,5 @@ namespace RXCrud.Service.Services
         public EstadoDto PesquisarPorId(Guid id)
            => _mapper.Map<EstadoDto>(_estadoRepository.PesquisarPorId(id));      
 
-
     }
 }

@@ -17,10 +17,31 @@ namespace RXCrud.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("RXCrud.Domain.Entities.Cidade", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("IdEstado")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEstado")
+                        .IsUnique();
+
+                    b.ToTable("Cidade");
+                });
 
             modelBuilder.Entity("RXCrud.Domain.Entities.Estado", b =>
                 {
@@ -33,12 +54,10 @@ namespace RXCrud.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Uf")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Uf")
-                        .IsUnique();
 
                     b.ToTable("Estado");
                 });
@@ -84,6 +103,22 @@ namespace RXCrud.Data.Migrations
                             NomeAcesso = "gleryston",
                             Senha = "nQm92qSBD7TDIhkt5co1YA=="
                         });
+                });
+
+            modelBuilder.Entity("RXCrud.Domain.Entities.Cidade", b =>
+                {
+                    b.HasOne("RXCrud.Domain.Entities.Estado", "Estado")
+                        .WithOne("Cidades")
+                        .HasForeignKey("RXCrud.Domain.Entities.Cidade", "IdEstado")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Estado");
+                });
+
+            modelBuilder.Entity("RXCrud.Domain.Entities.Estado", b =>
+                {
+                    b.Navigation("Cidades");
                 });
 #pragma warning restore 612, 618
         }

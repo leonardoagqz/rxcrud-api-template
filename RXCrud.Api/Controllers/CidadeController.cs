@@ -12,12 +12,12 @@ namespace RXCrud.Api.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class EstadoController : ControllerBase
+    public class CidadeController : ControllerBase
     {
-        private readonly IEstadoService _estadoService;
+        private readonly ICidadeService _cidadeService;
 
-        public EstadoController(IEstadoService estadoService)
-            => _estadoService = estadoService;
+        public CidadeController(ICidadeService cidadeService)
+            => _cidadeService = cidadeService;
 
         /// <summary>
         /// Consulta
@@ -27,10 +27,10 @@ namespace RXCrud.Api.Controllers
         /// <response code="401">Acesso não autorizado.</response>
         [HttpGet]
         [EnableQuery()]
-        [ProducesResponseType(typeof(IQueryable<EstadoDto>), 200)]
+        [ProducesResponseType(typeof(IQueryable<CidadeDto>), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Get()
-            => Ok(_estadoService.ObterTodos());
+            => Ok(_cidadeService.ObterTodos());
 
         /// <summary>
         /// Consulta por id
@@ -41,68 +41,69 @@ namespace RXCrud.Api.Controllers
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(EstadoDto), 200)]
+        [ProducesResponseType(typeof(CidadeDto), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult PorId(Guid id)
         {
-            EstadoDto estado = _estadoService.PesquisarPorId(id);
-            if (estado == null)
+            CidadeDto cidade = _cidadeService.PesquisarPorId(id);
+            if (cidade == null)
             {
                 return NotFound();
             }
 
-            return Ok(estado);
+            return Ok(cidade);
         }
 
         /// <summary>
         /// Criar.
-        /// Caso seja passado um array com id’s dos perfis que o estado deve possuir os mesmos serão incluídos no estado criado.
+        /// Caso seja passado um array com id’s dos perfis que o cidade deve possuir os mesmos serão incluídos no cidade criado.
         /// Caso não seja passado nada será feito.
         /// </summary>
-        /// <param name="estado"></param>
+        /// <param name="cidade"></param>
         /// <response code="200">Criado com sucesso.</response>
         /// <response code="400">Não foi possível criar.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpPost]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
-        public IActionResult Post(EstadoDto estado)
+        public IActionResult Post(CidadeDto cidade)
         {
             if (!ModelState.IsValid)
             {
                 throw new RXCrudException("Os dados para criação são inválidos.");
             }
 
-            _estadoService.Criar(estado);
+            _cidadeService.Criar(cidade);
             return Ok();
         }
 
         /// <summary>
         /// Atualizar.
-        /// Caso seja passado um array com id’s dos perfis que o estado deve possuir, todos os perfis atuais serão removidos e os novos serão incluídos.
+        /// Caso seja passado um array com id’s dos perfis que o cidade deve possuir, todos os perfis atuais serão removidos e os novos serão incluídos.
         /// Caso não seja passado nada será feito.
         /// </summary>
-        /// <param name="estado"></param>
+        /// <param name="cidade"></param>
         /// <response code="200">Atualizado com sucesso.</response>
         /// <response code="400">Não foi possível atualizar.</response>
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpPut]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
-        public IActionResult Put(EstadoDto estado)
+        public IActionResult Put(CidadeDto cidade)
         {
             if (!ModelState.IsValid)
             {
                 throw new RXCrudException("Os dados para atualização são inválidos.");
             }
 
-            if ((estado.Id.ToString().Equals("")) || (_estadoService.PesquisarPorId(estado.Id) == null))
+            if ((cidade.Id.ToString().Equals("")) || (_cidadeService.PesquisarPorId(cidade.Id) == null))
             {
                 return NotFound();
             }
 
-            _estadoService.Atualizar(estado);
+            _cidadeService.Atualizar(cidade);
             return Ok();
         }
+
 
         /// <summary>
         /// Excluir
@@ -113,17 +114,17 @@ namespace RXCrud.Api.Controllers
         /// <response code="404">Não localizado.</response>
         /// <response code="401">Acesso não autorizado.</response>
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(EstadoDto), 200)]
+        [ProducesResponseType(typeof(CidadeDto), 200)]
         [ProducesResponseType(typeof(ExceptionMessage), 400)]
         public IActionResult Delete(Guid id)
         {
-            EstadoDto estado = _estadoService.PesquisarPorId(id);
-            if (estado == null)
+            CidadeDto cidade = _cidadeService.PesquisarPorId(id);
+            if (cidade == null)
             {
                 return NotFound();
             }
 
-            _estadoService.Remover(estado);
+            _cidadeService.Remover(cidade);
             return Ok();
         }
     }

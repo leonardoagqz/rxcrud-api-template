@@ -10,12 +10,11 @@ namespace RXCrud.Domain.Dto
         public EstadoDto()
             => Id = Guid.NewGuid();
 
-        public EstadoDto(Guid id, string uf, string descricao)
+        public EstadoDto(string uf, string descricao)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Uf = uf;
-            Descricao = descricao;
-            
+            Descricao = descricao;            
         }
 
         public Guid Id { get; set; }
@@ -24,7 +23,9 @@ namespace RXCrud.Domain.Dto
         public string Uf { get; set; }
 
         [Required(ErrorMessage = "Campo 'Uf' obrigatório.")]
-        public string Descricao { get; set; }      
+        public string Descricao { get; set; }
         
+        
+
     }
 }
