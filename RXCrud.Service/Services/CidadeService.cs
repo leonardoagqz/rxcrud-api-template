@@ -1,12 +1,12 @@
-﻿using System;
-using AutoMapper;
-using System.Linq;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using RXCrud.Domain.Dto;
 using RXCrud.Domain.Entities;
 using RXCrud.Domain.Exception;
 using RXCrud.Domain.Interfaces.Data;
-using AutoMapper.QueryableExtensions;
 using RXCrud.Domain.Interfaces.Services;
+using System;
+using System.Linq;
 
 namespace RXCrud.Service.Services
 {
@@ -25,13 +25,13 @@ namespace RXCrud.Service.Services
         {
             CidadeJaCadastrada(cidadeDto);
 
-            _cidadeRepository.Criar(_mapper.Map<Cidade>(cidadeDto));           
+            _cidadeRepository.Criar(_mapper.Map<Cidade>(cidadeDto));
         }
 
         public void Atualizar(CidadeDto cidadeDto)
         {
             CidadeJaCadastrada(cidadeDto);
-            
+
             _cidadeRepository.Atualizar(_mapper.Map<Cidade>(cidadeDto));
         }
 
@@ -40,7 +40,7 @@ namespace RXCrud.Service.Services
             Cidade cidade = _cidadeRepository.PesquisarPorDescricao(cidadeDto.Descricao);
             if ((cidade != null) && (cidade.Id != cidadeDto.Id))
             {
-                throw new RXCrudException("A Cidade informada já está sendo utilizada.");
+                throw new RXCrudException("A cidade informada já está cadastrada.");
             }
         }
 
@@ -51,7 +51,6 @@ namespace RXCrud.Service.Services
             => _cidadeRepository.ObterTodos().ProjectTo<CidadeDto>(_mapper.ConfigurationProvider);
 
         public CidadeDto PesquisarPorId(Guid id)
-           => _mapper.Map<CidadeDto>(_cidadeRepository.PesquisarPorId(id));   
-        
+           => _mapper.Map<CidadeDto>(_cidadeRepository.PesquisarPorId(id));
     }
 }

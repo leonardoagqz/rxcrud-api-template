@@ -37,8 +37,7 @@ namespace RXCrud.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstado")
-                        .IsUnique();
+                    b.HasIndex("IdEstado");
 
                     b.ToTable("Cidade");
                 });
@@ -108,8 +107,8 @@ namespace RXCrud.Data.Migrations
             modelBuilder.Entity("RXCrud.Domain.Entities.Cidade", b =>
                 {
                     b.HasOne("RXCrud.Domain.Entities.Estado", "Estado")
-                        .WithOne("Cidades")
-                        .HasForeignKey("RXCrud.Domain.Entities.Cidade", "IdEstado")
+                        .WithMany("Cidades")
+                        .HasForeignKey("IdEstado")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

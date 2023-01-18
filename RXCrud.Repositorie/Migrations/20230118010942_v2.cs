@@ -5,19 +5,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RXCrud.Data.Migrations
 {
-    public partial class v3 : Migration
+    public partial class v2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
-                name: "Uf",
-                table: "Estado",
-                type: "text",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "text",
-                oldNullable: true);
+            migrationBuilder.CreateTable(
+                name: "Estado",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Uf = table.Column<string>(type: "text", nullable: false),
+                    Descricao = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estado", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Cidade",
@@ -41,8 +44,7 @@ namespace RXCrud.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Cidade_IdEstado",
                 table: "Cidade",
-                column: "IdEstado",
-                unique: true);
+                column: "IdEstado");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -50,19 +52,8 @@ namespace RXCrud.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Cidade");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Uf",
-                table: "Estado",
-                type: "text",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "text");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Estado_Uf",
-                table: "Estado",
-                column: "Uf",
-                unique: true);
+            migrationBuilder.DropTable(
+                name: "Estado");
         }
     }
 }

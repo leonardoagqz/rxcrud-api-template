@@ -1,22 +1,22 @@
-﻿using Moq;
-using System;
-using AutoMapper;
-using System.Linq;
+﻿using AutoMapper;
+using Moq;
 using NUnit.Framework;
 using RXCrud.Domain.Dto;
 using RXCrud.Domain.Entities;
+using RXCrud.Domain.Exception;
+using RXCrud.Domain.Interfaces.Data;
+using RXCrud.Domain.Interfaces.Services;
 using RXCrud.NUnitTest.Common;
 using RXCrud.Service.Services;
 using System.Collections.Generic;
-using RXCrud.Domain.Interfaces.Data;
-using RXCrud.Domain.Interfaces.Services;
+using System.Linq;
 
 namespace RXCrud.NUnitTest.Services
 {
     public class EstadoServiceTest
     {
-        private IMapper _mapper;
         private Estado _estado;
+        private IMapper _mapper;
         private IEstadoService _estadoService;
         private Mock<IEstadoRepository> _mockEstadoRepository;
 
@@ -30,19 +30,27 @@ namespace RXCrud.NUnitTest.Services
 
         [Test]
         public void CriarTest()
+            => Assert.DoesNotThrow(() => _estadoService.Criar(new EstadoDto("CE", "Descrição Teste")));
+
+        [Test]
+        public void CriarErroTest()
         {
             _mockEstadoRepository.Setup(r => r.PesquisarPorUf("Estado Teste")).Returns(_estado);
-            Assert.DoesNotThrow(() => _estadoService.Criar(new EstadoDto("Estado Teste", "Descrição Teste")));
+            Assert.IsTrue(Assert.Throws<RXCrudException>(() => _estadoService.Criar(new EstadoDto("Estado Teste", "Descrição Teste")))
+                .Message.Equals("A uf informada já está cadastrada."));
         }
-                
-        
+              
         [Test]
         public void AtualizarTest()
+            => Assert.DoesNotThrow(() => _estadoService.Atualizar(new EstadoDto("SP", "Descrição Teste")));        
+
+        [Test]
+        public void AtualizarErroTest()
         {
             _mockEstadoRepository.Setup(r => r.PesquisarPorUf("Estado Teste")).Returns(_estado);
-            Assert.DoesNotThrow(() => _estadoService.Atualizar(new EstadoDto("Estado Teste Atualizar", "Descrição Teste")));
+            Assert.IsTrue(Assert.Throws<RXCrudException>(() => _estadoService.Atualizar(new EstadoDto("Estado Teste", "Descrição Teste")))
+                .Message.Equals("A uf informada já está cadastrada."));
         }
-        
 
         [Test]
         public void RemoverTest()
@@ -63,7 +71,6 @@ namespace RXCrud.NUnitTest.Services
         {
             _mockEstadoRepository.Setup(r => r.PesquisarPorId(_estado.Id)).Returns(_estado);
             Assert.IsNotNull(_estadoService.PesquisarPorId(_estado.Id));
-        }      
-
+        }
     }
 }

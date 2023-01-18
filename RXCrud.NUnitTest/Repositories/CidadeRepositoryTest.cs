@@ -1,24 +1,31 @@
-﻿using System;
-using NUnit.Framework;
-using RXCrud.Domain.Entities;
-using RXCrud.NUnitTest.Common;
+﻿using NUnit.Framework;
 using RXCrud.Data.Repositories;
-using System.Collections.Generic;
+using RXCrud.Domain.Entities;
 using RXCrud.Domain.Interfaces.Data;
+using RXCrud.NUnitTest.Common;
+using System;
+using System.Collections.Generic;
 
 namespace RXCrud.NUnitTest.Repositories
 {
     public class CidadeRepositoryTest
     {
+        private IEstadoRepository _estadoRepository;
         private ICidadeRepository _cidadeRepository;
 
         public CidadeRepositoryTest()
-            => _cidadeRepository = new CidadeRepository(Utilitarios.GetContext());
+        {
+            _estadoRepository = new EstadoRepository(Utilitarios.GetContext());
+            _cidadeRepository = new CidadeRepository(Utilitarios.GetContext());
+        }
 
         [Test]
         public void CriarTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             Assert.IsNotNull(_cidadeRepository.PesquisarPorId(cidade.Id));
@@ -27,7 +34,11 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void AtualizarTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             cidade.Descricao = "Cidade Atualizada";
@@ -39,7 +50,10 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void RemoverTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             _cidadeRepository.Remover(cidade);
@@ -50,7 +64,10 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void RemoverListaTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             IList<Cidade> cidades = new List<Cidade>();
@@ -68,7 +85,10 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void PesquisarPorTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             Assert.IsNotNull(_cidadeRepository.PesquisarPor(x => x.Id.Equals(cidade.Id)));
@@ -77,7 +97,10 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void PesquisarPorIdTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             Assert.IsNotNull(_cidadeRepository.PesquisarPorId(cidade.Id));
@@ -86,12 +109,13 @@ namespace RXCrud.NUnitTest.Repositories
         [Test]
         public void ObterTodosPorTest()
         {
-            Cidade cidade = new Cidade(Guid.NewGuid(), "Cidade Teste Create");
+            Estado estado = new Estado("UF Teste Create", "Descrição Teste Create");
+            _estadoRepository.Criar(estado);
+
+            Cidade cidade = new Cidade(estado.Id, "Cidade Teste Create");
             _cidadeRepository.Criar(cidade);
 
             Assert.IsNotNull(_cidadeRepository.ObterTodosPor(x => x.Id.Equals(cidade.Id)));
-        }      
-
-      
+        }
     }
 }

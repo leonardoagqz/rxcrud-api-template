@@ -5,6 +5,5 @@ namespace RXCrud.Domain.Interfaces.Services
 {
     public interface IEstadoService : IService<EstadoDto>
     {
-                  
     }
 }

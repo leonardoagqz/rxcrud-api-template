@@ -1,12 +1,12 @@
-﻿using System;
-using AutoMapper;
-using System.Linq;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using RXCrud.Domain.Dto;
 using RXCrud.Domain.Entities;
 using RXCrud.Domain.Exception;
 using RXCrud.Domain.Interfaces.Data;
-using AutoMapper.QueryableExtensions;
 using RXCrud.Domain.Interfaces.Services;
+using System;
+using System.Linq;
 
 namespace RXCrud.Service.Services
 {
@@ -25,13 +25,13 @@ namespace RXCrud.Service.Services
         {
             UfJaCadastrada(estadoDto);
 
-            _estadoRepository.Criar(_mapper.Map<Estado>(estadoDto));           
+            _estadoRepository.Criar(_mapper.Map<Estado>(estadoDto));
         }
 
         public void Atualizar(EstadoDto estadoDto)
         {
             UfJaCadastrada(estadoDto);
-            
+
             _estadoRepository.Atualizar(_mapper.Map<Estado>(estadoDto));
         }
 
@@ -40,10 +40,10 @@ namespace RXCrud.Service.Services
             Estado estado = _estadoRepository.PesquisarPorUf(estadoDto.Uf);
             if ((estado != null) && (estado.Id != estadoDto.Id))
             {
-                throw new RXCrudException("A uf informada já está sendo utilizada.");
+                throw new RXCrudException("A uf informada já está cadastrada.");
             }
         }
-        
+
         public void Remover(EstadoDto estadoDto)
             => _estadoRepository.Remover(_mapper.Map<Estado>(estadoDto));
 
@@ -51,7 +51,6 @@ namespace RXCrud.Service.Services
             => _estadoRepository.ObterTodos().ProjectTo<EstadoDto>(_mapper.ConfigurationProvider);
 
         public EstadoDto PesquisarPorId(Guid id)
-           => _mapper.Map<EstadoDto>(_estadoRepository.PesquisarPorId(id));      
-
+           => _mapper.Map<EstadoDto>(_estadoRepository.PesquisarPorId(id));
     }
 }

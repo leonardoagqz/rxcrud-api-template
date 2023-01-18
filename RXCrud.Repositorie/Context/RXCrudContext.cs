@@ -1,8 +1,8 @@
-﻿using System;
-using RXCrud.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using RXCrud.Data.Configuration;
+using RXCrud.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 
 namespace RXCrud.Data.Context
 {

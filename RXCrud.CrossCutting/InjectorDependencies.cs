@@ -1,6 +1,6 @@
-﻿using RXCrud.Data.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RXCrud.Data.Context;
 
 namespace RXCrud.CrossCutting
 {

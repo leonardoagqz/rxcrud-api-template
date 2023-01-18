@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using RXCrud.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace RXCrud.Domain.Dto
@@ -15,10 +14,10 @@ namespace RXCrud.Domain.Dto
         {
             Id = Guid.NewGuid();
             IdEstado = idEstado;
-            Descricao = descricao;          
+            Descricao = descricao;
         }
 
-        public Guid Id { get; set; }        
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "Campo 'Descrição' obrigatório.")]
         public string Descricao { get; set; }

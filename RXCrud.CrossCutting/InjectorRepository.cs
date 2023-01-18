@@ -1,6 +1,6 @@
-﻿using RXCrud.Data.Repositories;
+﻿using Microsoft.Extensions.DependencyInjection;
+using RXCrud.Data.Repositories;
 using RXCrud.Domain.Interfaces.Data;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace RXCrud.CrossCutting
 {

@@ -1,6 +1,6 @@
-﻿using RXCrud.Service.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
 using RXCrud.Domain.Interfaces.Services;
-using Microsoft.Extensions.DependencyInjection;
+using RXCrud.Service.Services;
 
 namespace RXCrud.CrossCutting
 {

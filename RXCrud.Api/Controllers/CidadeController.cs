@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using RXCrud.Domain.Dto;
-using RXCrud.Domain.Exception;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using RXCrud.Domain.Dto;
+using RXCrud.Domain.Exception;
 using RXCrud.Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authorization;
+using System;
+using System.Linq;
 
 namespace RXCrud.Api.Controllers
 {
@@ -56,8 +56,6 @@ namespace RXCrud.Api.Controllers
 
         /// <summary>
         /// Criar.
-        /// Caso seja passado um array com id’s dos perfis que o cidade deve possuir os mesmos serão incluídos no cidade criado.
-        /// Caso não seja passado nada será feito.
         /// </summary>
         /// <param name="cidade"></param>
         /// <response code="200">Criado com sucesso.</response>
@@ -78,8 +76,6 @@ namespace RXCrud.Api.Controllers
 
         /// <summary>
         /// Atualizar.
-        /// Caso seja passado um array com id’s dos perfis que o cidade deve possuir, todos os perfis atuais serão removidos e os novos serão incluídos.
-        /// Caso não seja passado nada será feito.
         /// </summary>
         /// <param name="cidade"></param>
         /// <response code="200">Atualizado com sucesso.</response>

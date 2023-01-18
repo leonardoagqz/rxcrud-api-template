@@ -12,8 +12,8 @@ using RXCrud.Data.Context;
 namespace RXCrud.Data.Migrations
 {
     [DbContext(typeof(RXCrudContext))]
-    [Migration("20230112192902_v3")]
-    partial class v3
+    [Migration("20230118010942_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,8 +39,7 @@ namespace RXCrud.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstado")
-                        .IsUnique();
+                    b.HasIndex("IdEstado");
 
                     b.ToTable("Cidade");
                 });
@@ -110,8 +109,8 @@ namespace RXCrud.Data.Migrations
             modelBuilder.Entity("RXCrud.Domain.Entities.Cidade", b =>
                 {
                     b.HasOne("RXCrud.Domain.Entities.Estado", "Estado")
-                        .WithOne("Cidades")
-                        .HasForeignKey("RXCrud.Domain.Entities.Cidade", "IdEstado")
+                        .WithMany("Cidades")
+                        .HasForeignKey("IdEstado")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

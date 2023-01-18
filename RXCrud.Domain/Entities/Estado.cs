@@ -7,8 +7,8 @@ namespace RXCrud.Domain.Entities
     {
         public Estado(string uf, string descricao)
         {
-            Id = Guid.NewGuid();
             Uf = uf;
+            Id = Guid.NewGuid();
             Descricao = descricao;
         }
 
@@ -16,7 +16,6 @@ namespace RXCrud.Domain.Entities
 
         public string Descricao { get; set; }
 
-        public Cidade Cidades { get; set; }
-
+        public ICollection<Cidade> Cidades { get; set; }
     }
 }
